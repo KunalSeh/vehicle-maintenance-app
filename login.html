@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MyGarage</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .auth-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 350px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .toggle-link {
+            text-align: center;
+            margin-top: 12px;
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h2>🚗 MyGarage Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+            <div class="toggle-link" onclick="showSignup()">Don’t have an account? Sign Up</div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupForm" style="display:none;">
+            <h2>Sign Up</h2>
+            <input type="text" id="signupUsername" placeholder="Choose Username" required>
+            <input type="password" id="signupPassword" placeholder="Choose Password" required>
+            <button onclick="signup()">Create Account</button>
+            <div class="toggle-link" onclick="showLogin()">Already have an account? Login</div>
+        </div>
+    </div>
+
+<script>
+    function showSignup() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "block";
+    }
+
+    function showLogin() {
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+    }
+
+    function signup() {
+        let username = document.getElementById("signupUsername").value.trim();
+        let password = document.getElementById("signupPassword").value.trim();
+
+        if (username && password) {
+            localStorage.setItem(username, password); // store account
+            alert("Account created! Please log in.");
+            showLogin();
+        } else {
+            alert("Please fill all fields.");
+        }
+    }
+
+    function login() {
+        let username = document.getElementById("loginUsername").value.trim();
+        let password = document.getElementById("loginPassword").value.trim();
+
+        let storedPassword = localStorage.getItem(username);
+
+        if (storedPassword && storedPassword === password) {
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("currentUser", username);
+            window.location.href = "dashboard.html";
+        } else {
+            alert("Invalid username or password!");
+        }
+    }
+</script>
+
+</body>
+</html>

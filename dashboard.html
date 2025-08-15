@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Maintenance Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+ <!-- Add this inside <head> for Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <h2><i class="fas fa-car"></i> MyGarage</h2>
+    <nav>
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="add_vehicle.html"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
+        <a href="service_history.html"><i class="fas fa-wrench"></i> Service History</a>
+        <a href="fuel_records.html"><i class="fas fa-gas-pump"></i> Fuel Records</a>
+        <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+</aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HEADER -->
+        <header class="topbar">
+            <div>
+                <h1>Vehicle Maintenance Dashboard</h1>
+                <p>Keep track of your vehicles and their health</p>
+            </div>
+            <div class="profile">
+                <img src="icons/profile.png" alt="User Photo">
+                <span>Kunal</span>
+            </div>
+        </header>
+
+        <!-- SUMMARY STATS -->
+        <section class="stats">
+            <div class="card">
+                <h2>4</h2>
+                <p>Total Vehicles</p>
+            </div>
+            <div class="card">
+                <h2>2</h2>
+                <p>Services Due</p>
+            </div>
+            <div class="card">
+                <h2>1,220 L</h2>
+                <p>Total Fuel Filled</p>
+            </div>
+            <div class="card">
+                <h2>15,230 km</h2>
+                <p>Total Distance</p>
+            </div>
+        </section>
+
+        <!-- VEHICLE CARDS -->
+        <section class="vehicle-cards">
+            <h2>My Vehicles</h2>
+            <div class="vehicle-grid">
+                <div class="vehicle">
+                    <h3>Honda City</h3>
+                    <p>Type: Car</p>
+                    <p>Odometer: 42,300 km</p>
+                    <p>Last Service: 2025-05-20</p>
+                    <p>Fuel Filled: 40 L</p>
+                    <span class="status good">Status: Good</span>
+                </div>
+                <div class="vehicle">
+                    <h3>Bajaj Pulsar</h3>
+                    <p>Type: Bike</p>
+                    <p>Odometer: 15,200 km</p>
+                    <p>Last Service: 2025-06-15</p>
+                    <p>Fuel Filled: 12 L</p>
+                    <span class="status warning">Status: Service Soon</span>
+                </div>
+                <div class="vehicle">
+                    <h3>Hyundai Creta</h3>
+                    <p>Type: SUV</p>
+                    <p>Odometer: 28,500 km</p>
+                    <p>Last Service: 2025-04-10</p>
+                    <p>Fuel Filled: 50 L</p>
+                    <span class="status good">Status: Good</span>
+                </div>
+
+                <div class="vehicle">
+                    <h3>Royal Enfield Classic 350</h3>
+                    <p>Type: Bike</p>
+                    <p>Odometer: 9,800 km</p>
+                    <p>Last Service: 2025-07-05</p>
+                    <p>Fuel Filled: 15 L</p>
+                    <span class="status critical">Status: Service Overdue</span>
+                </div>
+                    </div>
+        </section>
+
+        <!-- SERVICE REMINDERS -->
+        <section class="reminders">
+            <h2>Upcoming Service Reminders</h2>
+            <ul>
+                <li>Honda City - Due on 2025-11-20</li>
+                <li>Bajaj Pulsar - Due on 2025-09-15</li>
+            </ul>
+        </section>
+
+        <!-- FUEL CHART -->
+       <section class="fuel-chart">
+    <h2>Fuel Consumption Summary</h2>
+    <canvas id="fuelChart" width="400" height="200"></canvas>
+</section>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Your Script -->
+<script src="script.js"></script>
+
+    </main>
+
+</body>
+</html>
