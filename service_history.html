@@ -1,72 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service History - MyGarage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service History · MyGarage</title>
+
+  <!-- Icons + Font -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h2><i class="fas fa-car"></i> MyGarage</h2>
+    <div class="brand"><i class="fa-solid fa-car"></i><span>MyGarage</span></div>
     <nav>
-      <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="add_vehicle.html"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
-      <a href="service_history.html" class="active"><i class="fas fa-wrench"></i> Service History</a>
-      <a href="fuel_records.html"><i class="fas fa-gas-pump"></i> Fuel Records</a>
-      <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+      <a class="navlink" href="dashboard.html"><i class="fa-solid fa-gauge-high"></i><span class="navtext">Dashboard</span></a>
+      <a class="navlink" href="add_vehicle.html"><i class="fa-solid fa-circle-plus"></i><span class="navtext">Add Vehicle</span></a>
+      <a class="navlink active" href="service_history.html"><i class="fa-solid fa-screwdriver-wrench"></i><span class="navtext">Service History</span></a>
+      <a class="navlink" href="fuel_records.html"><i class="fa-solid fa-gas-pump"></i><span class="navtext">Fuel Records</span></a>
+      <a class="navlink" href="settings.html"><i class="fa-solid fa-gear"></i><span class="navtext">Settings</span></a>
     </nav>
   </aside>
 
+  <!-- MAIN -->
   <main>
     <header class="topbar">
-      <h1>Service History</h1>
-      <p>Keep track of past services and upcoming maintenance schedules.</p>
+      <div>
+        <h1>Service History</h1>
+        <p>Log and review your vehicle services.</p>
+      </div>
     </header>
 
-    <section class="form-card colorful-card service-card">
-      <h2><i class="fas fa-tools"></i> Add Service Record</h2>
-      <form id="serviceForm" class="styled-form grid-form">
-        <div>
-          <label>Vehicle</label>
-          <input type="text" id="serviceVehicle" placeholder="e.g. Bajaj Pulsar" required>
-        </div>
+    <section class="content">
+      <section class="card">
+        <h2><i class="fa-solid fa-screwdriver-wrench"></i> Add Service Record</h2>
+        <form id="serviceForm" class="grid">
+          <div class="field">
+            <label for="serviceVehicle">Vehicle</label>
+            <select class="input" id="serviceVehicle" required></select>
+          </div>
+          <div class="field">
+            <label for="serviceDate">Date</label>
+            <input class="input" type="date" id="serviceDate" required>
+          </div>
+          <div class="field">
+            <label for="serviceDesc">Description</label>
+            <input class="input" type="text" id="serviceDesc" placeholder="Oil change, tire rotation…" required>
+          </div>
+          <div class="field">
+            <label for="serviceCost">Cost</label>
+            <input class="input" type="number" id="serviceCost" placeholder="Service cost" required>
+          </div>
+          <div class="field full">
+            <button type="submit" class="btn"><i class="fa-solid fa-floppy-disk"></i> Save Service</button>
+          </div>
+        </form>
+      </section>
 
-        <div>
-          <label>Date</label>
-          <input type="date" id="serviceDate" required>
-        </div>
-
-        <div>
-          <label>Description</label>
-          <input type="text" id="serviceDescription" placeholder="e.g. Oil Change, Brake Check" required>
-        </div>
-
-        <div>
-          <label>Cost ($)</label>
-          <input type="number" id="serviceCost" placeholder="e.g. 120" required>
-        </div>
-
-        <div class="full-width">
-          <button type="submit" class="btn-gradient">🛠 Add Service</button>
-        </div>
-      </form>
-    </section>
-
-    <section class="data-card">
-      <h2>📜 Past Services</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Vehicle</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Cost</th>
-          </tr>
-        </thead>
-        <tbody id="serviceTableBody"></tbody>
-      </table>
+      <section class="card">
+        <h2><i class="fa-solid fa-list"></i> Service Records</h2>
+        <table class="input" style="width:100%; border-collapse:collapse">
+          <thead>
+            <tr><th>Date</th><th>Vehicle</th><th>Description</th><th>Cost</th></tr>
+          </thead>
+          <tbody id="serviceHistory"></tbody>
+        </table>
+      </section>
     </section>
   </main>
 

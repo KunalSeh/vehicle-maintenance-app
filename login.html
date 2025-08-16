@@ -1,38 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyGarage Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login · MyGarage</title>
+
+  <!-- Icons + Font -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Center the auth card */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg);
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 380px;
+    }
+    .auth-card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .auth-card .brand-icon {
+      display: flex;
+      justify-content: center;
+      font-size: 42px;
+      color: var(--brand);
+      margin-bottom: 12px;
+    }
+    .toggle-link {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .toggle-link:hover { color: var(--brand) }
+  </style>
 </head>
-<body class="login-body">
 
-  <div class="overlay"></div>
-
-  <div class="auth-container">
-      <!-- Login Form -->
+<body>
+  <main>
+    <section class="card auth-card">
       <div id="loginForm">
-          <span class="icon"><i class="fas fa-car-side"></i></span>
-          <h2>MyGarage Login</h2>
-          <input type="text" id="loginUsername" placeholder="Username" required>
-          <input type="password" id="loginPassword" placeholder="Password" required>
-          <button onclick="login()">🚀 Start Your Ride</button>
-          <div class="toggle-link" onclick="showSignup()">Don’t have an account? Sign Up</div>
+        <div class="brand-icon"><i class="fa-solid fa-car"></i></div>
+        <h2>Welcome Back</h2>
+        <form class="grid" onsubmit="login(); return false;">
+          <div class="field full">
+            <label for="loginUsername">Username</label>
+            <input class="input" id="loginUsername" type="text" placeholder="Enter your username" required>
+          </div>
+          <div class="field full">
+            <label for="loginPassword">Password</label>
+            <input class="input" id="loginPassword" type="password" placeholder="••••••••" required>
+          </div>
+          <div class="field full">
+            <button type="submit" class="btn"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+          </div>
+        </form>
+        <div class="toggle-link" onclick="showSignup()">Don’t have an account? Sign Up</div>
       </div>
 
-      <!-- Signup Form -->
       <div id="signupForm" style="display:none;">
-          <span class="icon"><i class="fas fa-gas-pump"></i></span>
-          <h2>Sign Up</h2>
-          <input type="text" id="signupUsername" placeholder="Choose Username" required>
-          <input type="password" id="signupPassword" placeholder="Choose Password" required>
-          <button onclick="signup()">🔑 Create Account</button>
-          <div class="toggle-link" onclick="showLogin()">Already have an account? Login</div>
+        <div class="brand-icon"><i class="fa-solid fa-user-plus"></i></div>
+        <h2>Create Account</h2>
+        <form class="grid" onsubmit="signup(); return false;">
+          <div class="field full">
+            <label for="signupUsername">Username</label>
+            <input class="input" id="signupUsername" type="text" placeholder="Choose a username" required>
+          </div>
+          <div class="field full">
+            <label for="signupPassword">Password</label>
+            <input class="input" id="signupPassword" type="password" placeholder="Choose a password" required>
+          </div>
+          <div class="field full">
+            <button type="submit" class="btn"><i class="fa-solid fa-user-check"></i> Sign Up</button>
+          </div>
+        </form>
+        <div class="toggle-link" onclick="showLogin()">Already have an account? Login</div>
       </div>
+    </section>
+  </main>
+
+  <!-- Toast for feedback -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+    <i class="fa-solid fa-circle-check"></i>
+    <div id="toastText">Saved!</div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
