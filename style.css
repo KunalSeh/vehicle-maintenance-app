@@ -152,3 +152,240 @@ main {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* LOGIN PAGE STYLES */
+.login-body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('icons/petrolpump.png') no-repeat center center/cover;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.auth-container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
+    color: white;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.icon {
+    font-size: 40px;
+    text-align: center;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-container button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(255, 65, 108, 0.5);
+}
+
+.toggle-link {
+    text-align: center;
+    margin-top: 12px;
+    color: #ffd700;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* ADD VEHICLE - PROFESSIONAL STYLE */
+.colorful-card {
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    color: #2c3e50;
+}
+
+.colorful-card h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.grid-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px 20px;
+}
+
+.grid-form .full-width {
+    grid-column: 1 / -1;
+}
+
+.grid-form input, 
+.grid-form select {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.grid-form input:focus, 
+.grid-form select:focus {
+    outline: none;
+    border: 2px solid #3498db;
+    background: #fff;
+}
+
+.btn-gradient {
+    padding: 14px;
+    width: 100%;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    font-size: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-gradient:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 20px rgba(255, 65, 108, 0.5);
+}
+
+/* Colorful Variations for Pages */
+.fuel-card {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+}
+.service-card {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+}
+.settings-card {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.colorful-card h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+/* Settings Page Enhancements */
+.settings-card {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+.preference-card {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 15px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-logout:hover {
+    background: #1a252f;
+    transform: scale(1.03);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+}
+/* Dark Theme */
+body.dark-mode {
+    background: #1e272e;
+    color: #f1f2f6;
+}
+body.dark-mode .sidebar {
+    background: #111;
+    color: #ddd;
+}
+body.dark-mode .sidebar nav a {
+    color: #ddd;
+}
+body.dark-mode .form-card,
+body.dark-mode .data-card {
+    background: #2f3640 !important;
+    color: #f1f2f6;
+}
+body.dark-mode input,
+body.dark-mode select {
+    background: #3b3b3b;
+    color: #f1f2f6;
+    border: 1px solid #555;
+}
+body.dark-mode .btn-gradient {
+    background: linear-gradient(45deg, #485563, #29323c);
+}
+body.dark-mode .btn-logout {
+    background: #c0392b;
+}
+
+/* Logout button fix */
+.logout-card {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.btn-logout {
+    max-width: 250px;
+    padding: 14px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.btn-logout:hover {
+    background: #c0392b;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+}

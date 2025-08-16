@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Records - MyGarage</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2><i class="fas fa-car"></i> MyGarage</h2>
+    <nav>
+      <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="add_vehicle.html"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
+      <a href="service_history.html"><i class="fas fa-wrench"></i> Service History</a>
+      <a href="fuel_records.html" class="active"><i class="fas fa-gas-pump"></i> Fuel Records</a>
+      <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <h1>Fuel Records</h1>
+      <p>Track and monitor fuel expenses, mileage, and efficiency.</p>
+    </header>
+
+    <section class="form-card colorful-card fuel-card">
+      <h2><i class="fas fa-gas-pump"></i> Add Fuel Entry</h2>
+      <form id="fuelForm" class="styled-form grid-form">
+        <div>
+          <label>Vehicle</label>
+          <input type="text" id="fuelVehicle" placeholder="e.g. Honda City" required>
+        </div>
+
+        <div>
+          <label>Date</label>
+          <input type="date" id="fuelDate" required>
+        </div>
+
+        <div>
+          <label>Fuel Added (Liters)</label>
+          <input type="number" id="fuelLiters" placeholder="e.g. 40" required>
+        </div>
+
+        <div>
+          <label>Cost ($)</label>
+          <input type="number" id="fuelCost" placeholder="e.g. 60" required>
+        </div>
+
+        <div class="full-width">
+          <button type="submit" class="btn-gradient">⛽ Add Record</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="data-card">
+      <h2>📊 Fuel History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Vehicle</th>
+            <th>Date</th>
+            <th>Liters</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody id="fuelTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

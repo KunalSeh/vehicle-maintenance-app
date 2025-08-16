@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - MyGarage</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2><i class="fas fa-car"></i> MyGarage</h2>
+    <nav>
+      <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="add_vehicle.html"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
+      <a href="service_history.html"><i class="fas fa-wrench"></i> Service History</a>
+      <a href="fuel_records.html"><i class="fas fa-gas-pump"></i> Fuel Records</a>
+      <a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <header class="topbar">
+      <h1>Settings</h1>
+      <p>Manage your account, preferences, and app experience.</p>
+    </header>
+
+    <!-- PROFILE INFO -->
+    <section class="form-card colorful-card settings-card">
+      <h2><i class="fas fa-user-cog"></i> Profile Settings</h2>
+      <form id="profileForm" class="styled-form grid-form">
+        <div>
+          <label>Username</label>
+          <input type="text" id="settingsUsername" readonly>
+        </div>
+
+        <div>
+          <label>Email</label>
+          <input type="email" id="settingsEmail" placeholder="Enter your email">
+        </div>
+
+        <div>
+          <label>Phone</label>
+          <input type="tel" id="settingsPhone" placeholder="+91 9876543210">
+        </div>
+
+        <div>
+          <label>Old Password</label>
+          <input type="password" id="oldPassword" placeholder="Enter old password" required>
+        </div>
+
+        <div>
+          <label>New Password</label>
+          <input type="password" id="newPassword" placeholder="Enter new password">
+        </div>
+
+        <div class="full-width">
+          <button type="submit" class="btn-gradient">💾 Save Profile</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- APP PREFERENCES -->
+    <section class="form-card colorful-card preference-card">
+      <h2><i class="fas fa-sliders-h"></i> App Preferences</h2>
+      <form class="styled-form grid-form">
+        <div>
+          <label>Theme</label>
+          <select id="themeSelect">
+            <option value="light">🌞 Light</option>
+            <option value="dark">🌙 Dark</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Notifications</label>
+          <select id="notificationsSelect">
+            <option value="enabled">✅ Enabled</option>
+            <option value="disabled">❌ Disabled</option>
+          </select>
+        </div>
+
+        <div class="full-width">
+          <button type="button" onclick="savePreferences()" class="btn-gradient">⚙️ Save Preferences</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- LOGOUT -->
+    <section class="logout-card">
+      <button onclick="logout()" class="btn-logout">🚪 Logout</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

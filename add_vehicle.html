@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Vehicle - MyGarage</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2><i class="fas fa-car"></i> MyGarage</h2>
+    <nav>
+      <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="add_vehicle.html" class="active"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
+      <a href="service_history.html"><i class="fas fa-wrench"></i> Service History</a>
+      <a href="fuel_records.html"><i class="fas fa-gas-pump"></i> Fuel Records</a>
+      <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <header class="topbar">
+      <h1>Add a New Vehicle</h1>
+      <p>Provide complete details to track your vehicle’s maintenance, fuel, and health records.</p>
+    </header>
+
+    <section class="form-card colorful-card">
+      <h2><i class="fas fa-car-side"></i> Vehicle Information</h2>
+      <form id="addVehicleForm" class="styled-form grid-form">
+        
+        <!-- Basic Info -->
+        <div>
+          <label>Vehicle Name</label>
+          <input type="text" id="vehicleName" placeholder="e.g. Honda City" required>
+        </div>
+
+        <div>
+          <label>Type</label>
+          <select id="vehicleType" required>
+            <option value="Car">Car</option>
+            <option value="Bike">Bike</option>
+            <option value="SUV">SUV</option>
+            <option value="Truck">Truck</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Model</label>
+          <input type="text" id="vehicleModel" placeholder="e.g. VXi / ZXi / Classic" required>
+        </div>
+
+        <div>
+          <label>Year</label>
+          <input type="number" id="vehicleYear" placeholder="e.g. 2022" required>
+        </div>
+
+        <!-- Performance Info -->
+        <div>
+          <label>Odometer (km)</label>
+          <input type="number" id="odometer" placeholder="e.g. 45000" required>
+        </div>
+
+        <div>
+          <label>Fuel Type</label>
+          <select id="fuelType" required>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="CNG">CNG</option>
+            <option value="Electric">Electric</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Engine Number</label>
+          <input type="text" id="engineNumber" placeholder="e.g. ENG123456" required>
+        </div>
+
+        <div>
+          <label>VIN (Chassis Number)</label>
+          <input type="text" id="vin" placeholder="e.g. MH12AB1234567890" required>
+        </div>
+
+        <!-- Service & Insurance -->
+        <div>
+          <label>Last Service Date</label>
+          <input type="date" id="lastService" required>
+        </div>
+
+        <div>
+          <label>Next Service Due</label>
+          <input type="date" id="nextService" required>
+        </div>
+
+        <div>
+          <label>Insurance Expiry</label>
+          <input type="date" id="insuranceExpiry" required>
+        </div>
+
+        <div>
+          <label>Registration Number</label>
+          <input type="text" id="regNumber" placeholder="e.g. MH12AB1234" required>
+        </div>
+
+        <div class="full-width">
+          <button type="submit" class="btn-gradient">➕ Add Vehicle</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
