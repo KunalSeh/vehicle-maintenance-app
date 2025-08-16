@@ -1,99 +1,444 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings - MyGarage</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings · MyGarage</title>
+
+  <!-- Icon font -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111827;
+      --panel-2: #0f172a;
+      --txt: #e5e7eb;
+      --muted: #9ca3af;
+      --brand: #22c55e;
+      --brand-2: #06b6d4;
+      --accent: #8b5cf6;
+      --danger: #ef4444;
+      --ok: #10b981;
+      --border: #233046;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      color-scheme: dark;
+    }
+    [data-theme="light"]{
+      --bg: #f7fafc;
+      --panel: #ffffff;
+      --panel-2: #f3f4f6;
+      --txt: #0f172a;
+      --muted: #475569;
+      --brand: #16a34a;
+      --brand-2: #0891b2;
+      --accent: #6d28d9;
+      --danger: #dc2626;
+      --ok: #059669;
+      --border: #e5e7eb;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box }
+    html,body { height: 100% }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      background: var(--bg);
+      color: var(--txt);
+      display:grid;
+      grid-template-columns: 280px minmax(0,1fr);
+      min-height:100svh;
+    }
+
+    a{ color:inherit; text-decoration:none }
+    button{ font:inherit; cursor:pointer }
+
+    /* Sidebar */
+    .sidebar{
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      padding: 28px 20px;
+      border-right: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; margin-bottom: 26px;
+      font-weight: 700; letter-spacing:.2px; font-size: 22px;
+    }
+    .brand i{ color: var(--brand) }
+    nav .navlink{
+      display:flex; align-items:center; gap:12px;
+      padding: 12px 12px; border-radius:10px; color: var(--muted);
+      transition: .15s background, .15s color;
+      margin: 6px 0;
+    }
+    nav .navlink:hover{ background: var(--panel-2); color: var(--txt) }
+    nav .navlink.active{
+      background: linear-gradient(90deg, color-mix(in oklab, var(--brand) 18%, transparent), transparent);
+      color: var(--txt); border: 1px solid color-mix(in oklab, var(--brand) 25%, var(--border));
+    }
+
+    /* Topbar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding: 24px 28px; border-bottom:1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 85%, transparent), transparent);
+    }
+    .topbar h1{ font-size: 24px; margin:0 }
+    .topbar p{ margin: 4px 0 0; color: var(--muted); font-size: 14px }
+
+    /* Main content */
+    main{ display:flex; flex-direction:column; min-width:0 }
+    .content{ padding: 28px; display:grid; gap: 22px; align-content:start }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .card h2{
+      margin:0 0 14px;
+      font-size: 18px; display:flex; align-items:center; gap:10px
+    }
+    .card .subtext{ color: var(--muted); margin-top: -6px; margin-bottom: 14px; font-size: 14px }
+
+    /* Forms */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .field{ grid-column: span 6 }
+    .field.full{ grid-column: 1 / -1 }
+    label{ display:block; font-weight:600; font-size:13px; margin-bottom:8px }
+    .input, select, textarea{
+      width:100%; padding:12px 12px; border-radius:10px;
+      border:1px solid var(--border); background: var(--panel-2); color: var(--txt);
+      outline: none; transition: .15s border, .15s box-shadow;
+    }
+    .input:focus, select:focus, textarea:focus{ border-color: color-mix(in oklab, var(--brand) 45%, var(--border)); box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 25%, transparent) }
+    .help{ font-size:12px; color: var(--muted); margin-top:6px }
+
+    .btn{
+      padding: 12px 16px; border-radius: 12px; border:1px solid transparent;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: white; font-weight: 600;
+      display:inline-flex; align-items:center; gap:10px;
+      transition:.15s transform, .15s opacity, .15s box-shadow;
+      box-shadow: 0 8px 20px color-mix(in oklab, var(--brand) 25%, transparent);
+    }
+    .btn:hover{ transform: translateY(-1px) }
+    .btn.secondary{
+      background: transparent; color: var(--txt); border-color: var(--border)
+    }
+    .btn.danger{
+      background: linear-gradient(135deg, var(--danger), #f59e0b)
+    }
+
+    /* Password strength */
+    .strength{
+      height: 8px; border-radius: 999px; background: var(--panel-2); border:1px solid var(--border);
+      overflow:hidden;
+    }
+    .strength > span{
+      display:block; height:100%; width: 0%;
+      background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
+      transition: width .25s ease;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed; z-index: 50; right: 20px; bottom: 20px; min-width: 240px;
+      background: var(--panel); border:1px solid var(--border); color: var(--txt);
+      padding: 12px 14px; border-radius: 12px; box-shadow: var(--shadow);
+      display:flex; gap:10px; align-items:flex-start; opacity:0; transform: translateY(10px);
+      pointer-events:none; transition: .2s ease;
+    }
+    .toast.show{ opacity:1; transform: translateY(0) }
+    .toast i{ margin-top:2px }
+    .toast.ok i{ color: var(--ok) }
+    .toast.err i{ color: var(--danger) }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      body{ grid-template-columns: 78px 1fr }
+      .brand span{ display:none }
+      .navtext{ display:none }
+      .sidebar{ padding: 22px 12px }
+    }
+    @media (max-width: 640px){
+      .grid{ grid-template-columns: 1fr }
+      .field{ grid-column: 1 / -1 }
+    }
+
+    /* Focus ring for keyboard users */
+    :focus-visible{
+      outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+  </style>
 </head>
+
 <body>
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <h2><i class="fas fa-car"></i> MyGarage</h2>
+  <aside class="sidebar" aria-label="Primary">
+    <div class="brand" aria-label="MyGarage">
+      <i class="fa-solid fa-car"></i>
+      <span>MyGarage</span>
+    </div>
+
     <nav>
-      <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="add_vehicle.html"><i class="fas fa-plus-circle"></i> Add Vehicle</a>
-      <a href="service_history.html"><i class="fas fa-wrench"></i> Service History</a>
-      <a href="fuel_records.html"><i class="fas fa-gas-pump"></i> Fuel Records</a>
-      <a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a>
+      <a class="navlink" href="dashboard.html" aria-label="Dashboard"><i class="fa-solid fa-gauge-high"></i><span class="navtext">Dashboard</span></a>
+      <a class="navlink" href="add_vehicle.html" aria-label="Add Vehicle"><i class="fa-solid fa-circle-plus"></i><span class="navtext">Add Vehicle</span></a>
+      <a class="navlink" href="service_history.html" aria-label="Service History"><i class="fa-solid fa-screwdriver-wrench"></i><span class="navtext">Service History</span></a>
+      <a class="navlink" href="fuel_records.html" aria-label="Fuel Records"><i class="fa-solid fa-gas-pump"></i><span class="navtext">Fuel Records</span></a>
+      <a class="navlink active" href="#" aria-current="page"><i class="fa-solid fa-gear"></i><span class="navtext">Settings</span></a>
     </nav>
   </aside>
 
   <!-- MAIN -->
   <main>
     <header class="topbar">
-      <h1>Settings</h1>
-      <p>Manage your account, preferences, and app experience.</p>
+      <div>
+        <h1>Settings</h1>
+        <p>Manage your account, preferences, and app experience.</p>
+      </div>
+
+      <div role="group" aria-label="Quick actions" style="display:flex; gap:10px">
+        <button class="btn secondary" id="toggleThemeBtn" type="button" title="Toggle theme (L/D)">
+          <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i><span class="sr-only">Toggle theme</span>
+        </button>
+      </div>
     </header>
 
-    <!-- PROFILE INFO -->
-    <section class="form-card colorful-card settings-card">
-      <h2><i class="fas fa-user-cog"></i> Profile Settings</h2>
-      <form id="profileForm" class="styled-form grid-form">
-        <div>
-          <label>Username</label>
-          <input type="text" id="settingsUsername" readonly>
-        </div>
+    <section class="content">
 
-        <div>
-          <label>Email</label>
-          <input type="email" id="settingsEmail" placeholder="Enter your email">
-        </div>
+      <!-- PROFILE -->
+      <section class="card" aria-labelledby="profileTitle">
+        <h2 id="profileTitle"><i class="fa-solid fa-user-gear"></i> Profile Settings</h2>
+        <p class="subtext">Keep your contact info current. We never share your data.</p>
 
-        <div>
-          <label>Phone</label>
-          <input type="tel" id="settingsPhone" placeholder="+91 9876543210">
-        </div>
+        <form id="profileForm" class="grid" novalidate>
+          <div class="field">
+            <label for="settingsUsername">Username</label>
+            <input class="input" type="text" id="settingsUsername" name="username" readonly aria-readonly="true" />
+            <div class="help">This is your unique handle.</div>
+          </div>
 
-        <div>
-          <label>Old Password</label>
-          <input type="password" id="oldPassword" placeholder="Enter old password" required>
-        </div>
+          <div class="field">
+            <label for="settingsEmail">Email</label>
+            <input class="input" type="email" id="settingsEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
 
-        <div>
-          <label>New Password</label>
-          <input type="password" id="newPassword" placeholder="Enter new password">
-        </div>
+          <div class="field">
+            <label for="settingsPhone">Phone</label>
+            <input class="input" type="tel" id="settingsPhone" name="phone" placeholder="+91 9876543210" autocomplete="tel"
+                   pattern="^\+?[0-9][0-9\s\-]{7,}$" />
+            <div class="help">Include country code. Example: +91 98765 43210</div>
+          </div>
 
-        <div class="full-width">
-          <button type="submit" class="btn-gradient">💾 Save Profile</button>
-        </div>
-      </form>
-    </section>
+          <div class="field">
+            <label for="oldPassword">Old Password</label>
+            <input class="input" type="password" id="oldPassword" name="oldPassword" placeholder="••••••••" autocomplete="current-password" required />
+          </div>
 
-    <!-- APP PREFERENCES -->
-    <section class="form-card colorful-card preference-card">
-      <h2><i class="fas fa-sliders-h"></i> App Preferences</h2>
-      <form class="styled-form grid-form">
-        <div>
-          <label>Theme</label>
-          <select id="themeSelect">
-            <option value="light">🌞 Light</option>
-            <option value="dark">🌙 Dark</option>
-          </select>
-        </div>
+          <div class="field">
+            <label for="newPassword">New Password</label>
+            <input class="input" type="password" id="newPassword" name="newPassword" placeholder="At least 8 characters" autocomplete="new-password" />
+            <div class="help">Use 8+ chars with a number & a symbol.</div>
+          </div>
 
-        <div>
-          <label>Notifications</label>
-          <select id="notificationsSelect">
-            <option value="enabled">✅ Enabled</option>
-            <option value="disabled">❌ Disabled</option>
-          </select>
-        </div>
+          <div class="field full">
+            <div class="strength" aria-hidden="true"><span id="strengthBar"></span></div>
+          </div>
 
-        <div class="full-width">
-          <button type="button" onclick="savePreferences()" class="btn-gradient">⚙️ Save Preferences</button>
-        </div>
-      </form>
-    </section>
+          <div class="field full">
+            <button type="submit" class="btn"><i class="fa-solid fa-floppy-disk"></i> Save Profile</button>
+          </div>
+        </form>
+      </section>
 
-    <!-- LOGOUT -->
-    <section class="logout-card">
-      <button onclick="logout()" class="btn-logout">🚪 Logout</button>
+      <!-- PREFERENCES -->
+      <section class="card" aria-labelledby="prefTitle">
+        <h2 id="prefTitle"><i class="fa-solid fa-sliders"></i> App Preferences</h2>
+        <p class="subtext">Choose how MyGarage should look and notify you.</p>
+
+        <form id="prefForm" class="grid">
+          <div class="field">
+            <label for="themeSelect">Theme</label>
+            <select id="themeSelect" class="input" name="theme">
+              <option value="light">🌞 Light</option>
+              <option value="dark">🌙 Dark</option>
+              <option value="auto">🖥 Auto (System)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="notificationsSelect">Notifications</label>
+            <select id="notificationsSelect" class="input" name="notifications">
+              <option value="enabled">✅ Enabled</option>
+              <option value="disabled">❌ Disabled</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <button type="button" class="btn" id="savePrefBtn"><i class="fa-solid fa-gear"></i> Save Preferences</button>
+            <button type="button" class="btn secondary" id="resetPrefBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- DANGER ZONE -->
+      <section class="card" aria-labelledby="securityTitle">
+        <h2 id="securityTitle"><i class="fa-solid fa-door-open"></i> Logout</h2>
+        <p class="subtext">You can always sign back in later.</p>
+        <button class="btn danger" id="logoutBtn" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+      </section>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+    <i class="fa-solid fa-circle-check"></i>
+    <div id="toastText">Saved!</div>
+  </div>
+
+  <script>
+    // ---------- Utilities ----------
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const showToast = (msg, type='ok') => {
+      const toast = $('#toast'); const txt = $('#toastText');
+      toast.classList.remove('ok','err'); toast.classList.add(type);
+      txt.textContent = msg;
+      toast.classList.add('show'); clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toast.classList.remove('show'), 2000);
+    };
+
+    const store = {
+      get(key, fallback){ try{ return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } },
+      set(key, value){ localStorage.setItem(key, JSON.stringify(value)) }
+    };
+
+    // ---------- Theme ----------
+    const applyTheme = (mode) => {
+      if(mode === 'auto'){
+        const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = prefersDark ? 'dark' : 'light';
+      } else {
+        document.documentElement.dataset.theme = mode;
+      }
+    };
+    const initTheme = () => {
+      const saved = store.get('mg:theme', 'auto');
+      $('#themeSelect').value = saved;
+      applyTheme(saved);
+    };
+    $('#toggleThemeBtn')?.addEventListener('click', () => {
+      const current = document.documentElement.dataset.theme;
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      $('#themeSelect').value = next;
+      store.set('mg:theme', next);
+      showToast(Theme: ${next}, 'ok');
+    });
+
+    // ---------- Profile ----------
+    function passwordStrength(pw){
+      let score = 0;
+      if(!pw) return 0;
+      if(pw.length >= 8) score += 1;
+      if(/[A-Z]/.test(pw)) score += 1;
+      if(/[0-9]/.test(pw)) score += 1;
+      if(/[^A-Za-z0-9]/.test(pw)) score += 1;
+      if(pw.length >= 12) score += 1;
+      return Math.min(score, 5);
+    }
+    const syncStrength = () => {
+      const pw = $('#newPassword').value;
+      const pct = (passwordStrength(pw) / 5) * 100;
+      $('#strengthBar').style.width = pct + '%';
+    };
+    $('#newPassword')?.addEventListener('input', syncStrength);
+
+    const loadProfile = () => {
+      const p = store.get('mg:profile', { username: 'guest', email: '', phone: '' });
+      $('#settingsUsername').value = p.username || 'guest';
+      $('#settingsEmail').value = p.email || '';
+      $('#settingsPhone').value = p.phone || '';
+      syncStrength();
+    };
+
+    $('#profileForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = $('#settingsEmail').value.trim();
+      const phone = $('#settingsPhone').value.trim();
+      const oldPw = $('#oldPassword').value;
+      const newPw = $('#newPassword').value;
+
+      if(!email){ showToast('Email is required.', 'err'); return }
+      if(oldPw.length < 1){ showToast('Enter your old password.', 'err'); return }
+      if(newPw && newPw.length < 8){ showToast('New password must be 8+ chars.', 'err'); return }
+
+      const username = $('#settingsUsername').value || 'guest';
+      store.set('mg:profile', { username, email, phone });
+
+      // Don't persist passwords client-side
+      $('#oldPassword').value = '';
+      $('#newPassword').value = '';
+      syncStrength();
+
+      showToast('Profile saved ✅', 'ok');
+    });
+
+    // ---------- Preferences ----------
+    const loadPrefs = () => {
+      const prefs = store.get('mg:prefs', { theme: 'auto', notifications: 'enabled' });
+      $('#themeSelect').value = prefs.theme;
+      $('#notificationsSelect').value = prefs.notifications;
+      applyTheme(prefs.theme);
+      store.set('mg:theme', prefs.theme);
+    };
+    $('#savePrefBtn')?.addEventListener('click', () => {
+      const theme = $('#themeSelect').value;
+      const notifications = $('#notificationsSelect').value;
+      store.set('mg:prefs', { theme, notifications });
+      store.set('mg:theme', theme);
+      applyTheme(theme);
+      showToast('Preferences saved ⚙', 'ok');
+    });
+    $('#resetPrefBtn')?.addEventListener('click', () => {
+      store.set('mg:prefs', { theme: 'auto', notifications: 'enabled' });
+      loadPrefs();
+      showToast('Preferences reset', 'ok');
+    });
+
+    // ---------- Logout ----------
+    $('#logoutBtn')?.addEventListener('click', async () => {
+      const sure = confirm('Are you sure you want to log out?');
+      if(!sure) return;
+      showToast('Logged out. See you soon! 👋', 'ok');
+      setTimeout(()=> { window.location.href = 'index.html'; }, 600);
+    });
+
+    // ---------- Boot ----------
+    initTheme();
+    loadProfile();
+    loadPrefs();
+
+    if(!store.get('mg:profile')){
+      store.set('mg:profile', { username: 'mygarage_user', email: '', phone: '' });
+      loadProfile();
+    }
+  </script>
 </body>
 </html>
