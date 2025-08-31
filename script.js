@@ -245,3 +245,83 @@ function displayServices(){
       <td>${s.date}</td><td>${s.vehicle}</td><td>${s.description}</td><td>${s.cost}</td>
     </tr>`).join('');
 }
+
+// ==================== AUTH (Signup + Login + Logout) ====================
+
+// Get current user
+function getCurrentUser() {
+  return store.get("currentUser", null);
+}
+
+// Signup
+function signup() {
+  const username = $('#signupUsername').value.trim();
+  const password = $('#signupPassword').value.trim();
+
+  if (!username || !password) {
+    showToast("Please enter username and password", "err");
+    return;
+  }
+
+  let users = store.get("users", []);
+
+  // Check if user exists
+  if (users.find(u => u.username === username)) {
+    showToast("⚠️ Username already exists", "err");
+    return;
+  }
+
+  // Save user
+  users.push({ username, password });
+  store.set("users", users);
+
+  // Auto login
+  store.set("currentUser", { username });
+  showToast("✅ Signup successful!", "ok");
+
+  // Redirect to dashboard
+  window.location.href = "dashboard.html";
+}
+
+// Login
+function login() {
+  const username = $('#loginUsername').value.trim();
+  const password = $('#loginPassword').value.trim();
+
+  let users = store.get("users", []);
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (!user) {
+    showToast("❌ Invalid username or password", "err");
+    return;
+  }
+
+  store.set("currentUser", { username });
+  showToast("✅ Login successful", "ok");
+
+  window.location.href = "dashboard.html";
+}
+
+// Logout
+function logout() {
+  store.remove("currentUser");
+  showToast("👋 Logged out", "ok");
+  window.location.href = "login.html";
+}
+
+// Toggle signup/login forms
+function showSignup() {
+  $('#loginForm').style.display = 'none';
+  $('#signupForm').style.display = 'block';
+}
+function showLogin() {
+  $('#signupForm').style.display = 'none';
+  $('#loginForm').style.display = 'block';
+}
+
+// Protect private pages (call this on dashboard)
+function protectPage() {
+  if (!getCurrentUser()) {
+    window.location.href = "login.html";
+  }
+}
