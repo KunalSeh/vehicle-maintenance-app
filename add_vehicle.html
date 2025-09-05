@@ -119,5 +119,39 @@
   </div>
 
   <script src="script.js"></script>
+    <script>
+  document.getElementById('addVehicleForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const data = {
+      vehicleName: document.getElementById('vehicleName').value,
+      vehicleType: document.getElementById('vehicleType').value,
+      vehicleModel: document.getElementById('vehicleModel').value,
+      vehicleYear: document.getElementById('vehicleYear').value,
+      odometer: document.getElementById('odometer').value,
+      fuelType: document.getElementById('fuelType').value,
+      regNumber: document.getElementById('regNumber').value,
+      lastService: document.getElementById('lastService').value,
+      nextService: document.getElementById('nextService').value,
+      insuranceExpiry: document.getElementById('insuranceExpiry').value
+    };
+    try {
+      const response = await fetch('/api/vehicles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      console.log(result);
+      // Optionally show a toast or alert
+      document.getElementById('toastText').textContent = "Saved!";
+      document.getElementById('toast').style.display = "block";
+      setTimeout(() => {
+        document.getElementById('toast').style.display = "none";
+      }, 2000);
+    } catch (err) {
+      console.error('Error submitting vehicle:', err);
+    }
+  });
+  </script>
 </body>
 </html>

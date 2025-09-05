@@ -161,33 +161,45 @@ window.addEventListener('dataUpdated', e=>{
 });
 
 // ==================== ADD VEHICLE PAGE ====================
-const addVehicleForm = $('#addVehicleForm');
-if (addVehicleForm) {
-  addVehicleForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const vehicles = store.get('vehicles', []);
-   const newVehicle = {
-  name: $('#vehicleName').value.trim(),
-  type: $('#vehicleType').value.trim(),
-  model: $('#vehicleModel')?.value.trim() || '',
-  year: $('#vehicleYear')?.value.trim() || '',
-  odometer: $('#odometer').value.trim(),
-  fuel: $('#fuelType')?.value || '',          // ✅ fixed
-  regNumber: $('#regNumber')?.value.trim() || '', // ✅ plate/registration
-  insuranceExpiry: $('#insuranceExpiry')?.value || '',
-  nextService: $('#nextService')?.value || '',
-  createdAt: new Date().toISOString()
-};
+addVehicleForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    if (!newVehicle.name || !newVehicle.type) {
-      showToast('Please fill required fields','err'); return;
-    }
-    vehicles.push(newVehicle);
-    store.set('vehicles', vehicles);
-    showToast('Vehicle added ✅','ok');
+  const newVehicle = {
+    name: $('#vehicleName').value.trim(),
+    type: $('#vehicleType').value.trim(),
+    model: $('#vehicleModel')?.value.trim() || '',
+    year: $('#vehicleYear')?.value.trim() || '',
+    odometer: $('#odometer').value.trim(),
+    fuel: $('#fuelType')?.value || '',
+    regNumber: $('#regNumber')?.value.trim() || '',
+    insuranceExpiry: $('#insuranceExpiry')?.value || '',
+    nextService: $('#nextService')?.value || '',
+    createdAt: new Date().toISOString()
+  };
+
+  if (!newVehicle.name || !newVehicle.type) {
+    showToast('Please fill required fields', 'err');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/vehicles', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newVehicle)
+    });
+
+    const result = await res.json();
+    console.log('✅ Server response:', result);
+
+    showToast('Vehicle saved to backend ✅', 'ok');
     addVehicleForm.reset();
-  });
-}
+  } catch (err) {
+    console.error('❌ Error saving vehicle:', err);
+    showToast('Failed to save vehicle ❌', 'err');
+  }
+});
+
 
 
 // ==================== FUEL RECORDS PAGE ====================
